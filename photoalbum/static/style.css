@@ -1,0 +1,73 @@
+/* Flexbox Image Gallery */
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+li {
+  height: 40vh;
+  flex-grow: 1;
+}
+
+li:last-child {
+  flex-grow: 10;
+}
+
+img {
+  max-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: #bbb;
+} 
+
+.no-bullet {
+  list-style-type: none;
+}
+
+/* Modal Images */
+
+.modal {
+  /* default to hidden */
+  display: none;
+  
+  /* overlay screen, top of stack */
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  /* padding around image */
+  padding: 1em;
+  
+  /* translucent background */
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Display Modal when target */
+
+.modal:target {
+  display: block;
+}
+
+.modal span {
+  /* Full width and height */
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  /* Size and position */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

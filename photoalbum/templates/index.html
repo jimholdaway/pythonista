@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- START Image Gallery Links -->
+
+<ul class="no-bullet">
+{% for image in images %}
+  <li>
+    <a href="{{ '#img' + image }}">
+      <img src="{{ '../static/images/' + image + '.JPG' }}"/>
+    </a>
+  </li>
+{% endfor %}
+</ul>
+
+<!-- END Image Gallery Links -->
+
+<!-- START Modal Images -->
+
+{% for image in images %}
+<a href="#" class="modal" id="{{ 'img' + image }}">
+  <span style="background-image: url({{ '../static/images/' + image + '.JPG' }})"></span>
+</a>
+{% endfor %}
+
+<!-- END Modal Images -->
+	
+{% endblock %}
