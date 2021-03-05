@@ -1,9 +1,10 @@
 import sys
+import argparse
 import os
 import piexif
 from PIL import Image
 
-def jpg_exif_remove(in_dir = "images", out_dir = "images_cleaned", abs_path = False):
+def jpg_exif_remove(args):
 	
 	"""
 	Removes EXIF data from directory of jpeg images whilst preserving image orientation and quality.
@@ -16,14 +17,22 @@ def jpg_exif_remove(in_dir = "images", out_dir = "images_cleaned", abs_path = Fa
 	abs_path: boolean, if True in_dir and out_dir must be full absolute paths 
 	"""
 	
+	# Set args
+	
+	in_dir = args.in_dir
+	out_dir = args.out_dir
+	abs_path = args.abs_path
+	
 	# Set paths according to arg boolean
 	
-	if abs_path:
+	if (abs_path == True):
 		in_path = in_dir
 		out_path = out_dir
-	else:
+	elif (abs_path == False):
 		in_path = os.getcwd() + "/" + in_dir + "/"
 		out_path = os.getcwd() + "/" + out_dir + "/"
+	else:
+		print("Option 'abs_path' must be boolean")
 		
 	# Check if output path exists, create if not
 	
@@ -69,10 +78,14 @@ def jpg_exif_remove(in_dir = "images", out_dir = "images_cleaned", abs_path = Fa
 			# Save image without EXIF, with max useful quality, no subsampling
 				
 			img.save(out_path + filename, quality = 95, subsampling = 0)
+			
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser(description="Open JPEGs in a directory, removes EXIF data and saves to another directory. If default arguments are not used, ALL arguments must be set.")
+	parser.add_argument("in_dir", nargs='?', type=str, default="images", help="Path to directory of images to have EXIF removed")
+	parser.add_argument("out_dir", nargs='?', type=str, default="images_cleaned", help="Path of directory to save EXIF removed images too")
+	parser.add_argument("abs_path", nargs='?', type=bool, default=False, help="Set to true is absolute path to be used")
+	args = parser.parse_args()
+	jpg_exif_remove(args)
 	
-if __name__ = "__main__":
-	args = sys.argv
-	# args[0] = current file
-	# args[1] = function name
-	# args[2:] = function args : (*unpacked)
-	globals()[args[1]](*args[2:])
+
+		
